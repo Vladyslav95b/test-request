@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 const API_KEY =
   'sk_prod_TfMbARhdgues5AuIosvvdAC9WsA5kXiZlW8HZPaRDlIbCpSpLsXBeZO7dCVZQwHAY3P4VSBPiiC33poZ1tdUj2ljOzdTCCOSpUZ_3912';
 
