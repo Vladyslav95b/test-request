@@ -9,6 +9,7 @@ const API_KEY =
   'sk_prod_TfMbARhdgues5AuIosvvdAC9WsA5kXiZlW8HZPaRDlIbCpSpLsXBeZO7dCVZQwHAY3P4VSBPiiC33poZ1tdUj2ljOzdTCCOSpUZ_3912';
 
 app.get('/:formId/filteredResponses', async (req, res) => {
+  const querys = req.query;
   try {
     const formId = req.params.formId;
     const API = `https://api.fillout.com/v1/api/forms/${formId}/submissions`;
@@ -16,7 +17,7 @@ app.get('/:formId/filteredResponses', async (req, res) => {
       headers: {
         Authorization: `Bearer ${API_KEY}`,
       },
-      params: req.query,
+      params: querys,
     });
 
     const filters = JSON.parse(req.query?.filters);
@@ -45,6 +46,9 @@ app.get('/:formId/filteredResponses', async (req, res) => {
     const response = {
       responses: newData,
       totalResponses: newData.length,
+      //If you need to implement pagination with inner filtered item then we need to add new query like this:
+      //pageCount: querys?.innerFiler ?  Math.ceil(newData.length /  querys?.innerFiler) : 1
+      // I set 1 becose limit is maximum 150, we cant get all together
       pageCount: 1,
     };
     res.json(response);
